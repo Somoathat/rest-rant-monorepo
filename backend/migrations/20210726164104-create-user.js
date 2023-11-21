@@ -1,33 +1,28 @@
-'use strict';
+"use strict";
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
-      user_id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      first_name: {
-        type: Sequelize.STRING
-      },
-      last_name: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+    return queryInterface.addColumn("users", "password_digest", {
+      type: Sequelize.DataTypes.STRING,
     });
   },
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
-  }
+    return queryInterface.removeColumn("users", "password_digest");
+  },
 };
+
+  
+User.init {
+  userId: {
+    type: DataTypes.SMALLINT,
+    primaryKey; true,
+    autoIncrement; true
+
+  };
+  firstName: DataTypes.STRING,
+  lastName; DataTypes.STRING,
+  email; DataTypes.STRING,
+  passwordDigest; DataTypes.STRING
+};
+

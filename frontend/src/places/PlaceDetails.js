@@ -66,9 +66,43 @@ function PlaceDetails() {
 
     setPlace({
       ...place,
-      comments: [...place.comments, comment],
-    });
-  }
+       
+    comments = place.comments.map(comment => {
+      return (
+          <CommentCard 
+              key={comment.commentId} 
+              comment={comment} 
+              onDelete={() => deleteComment(comment)} 
+          />
+      )
+  })
+}
+
+let placeActions = null
+
+if (currentUser?.role === 'admin') {
+  placeActions = (
+      <>
+          <a className="btn btn-warning" onClick={editPlace}>
+              Edit
+          </a>
+          <button type="submit" className="btn btn-danger" onClick={deletePlace}>
+              Delete
+          </button>
+      </>
+  )
+}
+
+return (
+  <main>
+      <div className="row">
+            
+                  Serving {place.cuisines}.
+              </h4>
+              <br />
+              {placeActions}
+          </div>
+      </div>
 
   let comments = <h3 className="inactive">No comments yet!</h3>;
   let rating = <h3 className="inactive">Not yet rated</h3>;
